@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--        namespace命名空间，包名+SQL映射文件名-->
+<mapper namespace="com.mybatis.mapper.UserInfoMapper">
+    <!--    id：SQL语句的唯一标识-->
+    <select id="findUserInfoById" parameterType="int" resultType="com.mybatis.pojo.UserInfo">
+        select * from user_info where id = #{id}
+    </select>
+</mapper>
