@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+    <!-- environments元素用于环境配置，也就是数据源配置，environments元素体中可以配置多个数据库环境 -->
+    <environments default="development">
+        <environment id="development">
+            <!-- transactionManager配置事务管理，type的取值可以是JDBC和MANAGED -->
+            <transactionManager type="JDBC"/>
+            <!--dataSource声明数据源  -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+                <property name="url" value="jdbc:sqlserver://127.0.0.1:1433;DatabaseName=eshop"/>
+                <property name="username" value="sa"/>
+                <property name="password" value="sqlserver"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--mappers元素用于指定mybatis映射文件的位置-->
+    <mappers>
+        <mapper resource="com/mybatis/mapper/UserInfoMapper.xml"/>
+    </mappers>
+</configuration>

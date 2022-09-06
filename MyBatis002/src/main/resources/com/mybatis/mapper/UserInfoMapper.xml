@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--        namespace命名空间，包名+SQL映射文件名-->
+<mapper namespace="com.mybatis.mapper.UserInfoMapper">
+    <!--    id：SQL语句的唯一标识-->
+    <!--根据用户id查询用户信息-->
+    <select id="findUserInfoById" parameterType="int" resultType="com.mybatis.pojo.UserInfo">
+        select * from user_info where id = #{id}
+    </select>
+    <!--根据用户名模糊查询用户信息 -->
+    <select id="findUserInfoByName" parameterType="String" resultType="com.mybatis.pojo.UserInfo">
+        select * from user_info where username like '%'+#{search_name}+'%'
+    </select>
+    <insert id="addUserInfo" parameterType="com.mybatis.pojo.UserInfo">
+        insert into user_info(userName,password) values(#{userName},#{password})
+    </insert>
+    <select id="updateUserInfo" parameterType="com.mybatis.pojo.UserInfo">
+        update  user_info set userName = #{userName},password = #{password} where id = #{id}
+    </select>
+    <select id="deleteUserInfo" parameterType="com.mybatis.pojo.UserInfo">
+        delete from user_info where id = #{id}
+    </select>
+</mapper>
