@@ -1,6 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--        namespace命名空间，包名+SQL映射文件名-->
+<mapper namespace="com.mybatis.mapper.UserInfoMapper">
 
-</beans>
+    <sql id="userInfoColumns" >id,username,password</sql>
+    <resultMap id="userInfoMap" type="userInfo">
+        <id property="uid" column="id" ></id>
+        <result property="uname" column="userName"></result>
+        <result property="upass" column="password"></result>
+    </resultMap>
+
+    <!--    id：SQL语句的唯一标识-->
+    <select id="findUserInfoById" parameterType="int" resultType="userInfo" resultMap="userInfoMap">
+        select <include refid="userInfoColumns"></include> from user_info where id = #{id}
+    </select>
+    <!--    -->
+    <select id="findUserInfoByName" parameterType="String" resultType="userInfo">
+        select * from user_info where userName like '%' + #{search_name} + '%'
+    </select>
+    <insert id="addUserInfo" parameterType="userInfo" keyProperty="id" useGeneratedKeys="true">
+        insert into user_info(userName,password) values (#{userName},#{password})
+    </insert>
+    <update id="updateUserInfo" parameterType="userInfo">
+        update  user_info set userName = #{userName},password = #{password} where id = #{id}
+    </update>
+    <delete id="deleteUserInfo" parameterType="userInfo">
+        delete from user_info where id = #{id}
+    </delete>
+</mapper>

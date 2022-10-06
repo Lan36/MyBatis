@@ -3,9 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <properties resource="db.properties"></properties>
     <settings>
         <setting name="logImpl" value="LOG4J"/>
     </settings>
+    <typeAliases>
+        <!-- <typeAlias type="com.mybatis.pojo.UserInfo" alias="userInfo"/> -->
+        <package name="com.mybatis.pojo"/>
+    </typeAliases>
     <!-- environments元素用于环境配置，也就是数据源配置，environments元素体中可以配置多个数据库环境 -->
     <environments default="development">
         <environment id="development">
@@ -13,15 +18,16 @@
             <transactionManager type="JDBC"/>
             <!--dataSource声明数据源  -->
             <dataSource type="POOLED">
-                <property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-                <property name="url" value="jdbc:sqlserver://127.0.0.1:1433;DatabaseName=eshop"/>
-                <property name="username" value="sa"/>
-                <property name="password" value="sqlserver"/>
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
             </dataSource>
         </environment>
     </environments>
-    <!--mappers元素用于指定mybatis映射文件的位置-->
     <mappers>
-        <mapper resource="com/mybatis/mapper/UserInfoMapper.xml"/>
+        <!--  <mapper resource="com/mybatis/mapper/UserInfoMapper.xml"/> -->
+        <!-- <mapper class="com.mybatis.mapper.UserInfoMapper"/> -->
+        <package name="com.mybatis.mapper"/>
     </mappers>
 </configuration>
